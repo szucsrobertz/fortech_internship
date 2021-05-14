@@ -60,7 +60,6 @@ class Home extends React.Component {
     }
 
     handleClickOutside = (event) => {
-
         if (
             this.container.current &&
             !this.container.current.contains(event.target)
