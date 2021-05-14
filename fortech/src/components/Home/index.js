@@ -193,7 +193,6 @@ class Home extends React.Component {
                                 <div><button className="dropdown-content-b" onClick={this.handleLanguagesButtonClick}>Languages</button>
                                     {this.state.openLanguagesButton && (
                                         <div className="sub-dropdown">
-
                                             {this.state.filterLanguages.map(language => (
                                                 <div className="sub-dropdown-content">
 
@@ -204,7 +203,6 @@ class Home extends React.Component {
                                         </div>
                                     )}
                                 </div>
-
                                 <div><button className="dropdown-content-b" onClick={this.handleTimeZonesButtonClick}>Time Zones</button>
                                     {this.state.openTimeZonesButton && (
                                         <div className="sub-dropdown">
@@ -215,11 +213,9 @@ class Home extends React.Component {
                                                     <button className="sub-dropdown-button" onClick={() => { this.handleFilterChange(timezone, "timezones") }}>{timezone}</button>
                                                 </div>
                                             ))}
-
                                         </div>
                                     )}
                                 </div>
-
                                 <div><button className="dropdown-content-b" onClick={this.handleCurrenciesButtonClick}>Currencies</button>
                                     {this.state.openCurrenciesButton && (
                                         <div className="sub-dropdown">
