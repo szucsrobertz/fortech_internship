@@ -243,7 +243,6 @@ class Home extends React.Component {
                     >
                     </input>
                 </div>
-
                 <div className="preview">
                     {!this.state.countryDetails.length && <div className="error">Sorry we couldn't find any country for that criteria</div>}
                     {
