@@ -1,0 +1,63 @@
+.background{
+  height: 100%;
+  width: 100%;
+  background: rgba(56, 55, 55, 0.9);
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  left: 0;
+  top: 0;
+    right: 0;
+    bottom: 0;
+    transition: background-color 1000ms linear;
+
+  .modal{
+    width: 500px;
+    height: 500px;
+    background-color: white;
+    align-items: center;
+    margin: auto;
+    
+    flex-direction: row;
+    position: relative;
+    
+
+    .image {
+      margin:10px auto;
+        align-items: center;
+        width: 75%;
+        height: 45%;
+        background-size: cover;
+        background-position: center;  
+      }
+    
+      .modal-info{
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+          justify-content: space-between;
+      }
+
+      .info{
+        margin: 5px 5px;
+      }
+
+      .info-column{
+        align-items: flex-start;
+        display: flex;
+        flex-direction: column;
+      }
+
+
+      button{
+        background-color: transparent;
+        border:none;
+      }
+}
+}
+
+
+
+
+
