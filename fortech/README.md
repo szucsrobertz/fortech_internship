@@ -57,7 +57,8 @@ This Modal component contains a close button, the country flag and different inf
 ## Project Structure
 
 
-
+```
+.
 src
 ├── .components
 │   ├── Card
@@ -79,7 +80,4 @@ src
 ├──package-lock.json
 ├──package.json
 ├──README.md
-
-
-
-
+```
