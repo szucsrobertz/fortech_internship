@@ -16,7 +16,6 @@ You will also see any lint errors in the console.
 
 ### `npm test`
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
 
 # Components
 
@@ -56,6 +55,7 @@ This Modal component contains a close button, the country flag and different inf
 
 ## Project Structure
 
+**Note: it.s a responsive design**
 
 ```
 .
