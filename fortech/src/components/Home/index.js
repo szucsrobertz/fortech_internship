@@ -9,7 +9,6 @@ class Home extends React.Component {
     constructor() {
         super()
 
-
         this.container = React.createRef();
         this.state = {
             countryDetails: [],
@@ -32,7 +31,6 @@ class Home extends React.Component {
         fetch('https://restcountries.eu/rest/v2/all')
             .then(response => response.json())
             .then(response => {
-
                 const region = response.map(index => (index.region))
                 const filterRegion = [...new Set(region)]
 
@@ -45,7 +43,13 @@ class Home extends React.Component {
                 const currencie = response.map(index => (index.currencies.map(currencie => (currencie.name))))
                 const filterCurrencies = [...new Set(currencie.flat(1))]
 
-                this.setState({ countryDetails: response, defaultCountryDetails: response, filterRegion, filterLanguages, filterTimeZone, filterCurrencies })
+                this.setState({
+                    countryDetails: response,
+                    defaultCountryDetails: response,
+                    filterRegion, filterLanguages,
+                    filterTimeZone,
+                    filterCurrencies
+                })
             })
 
         document.addEventListener("mousedown", this.handleClickOutside);
@@ -85,22 +89,33 @@ class Home extends React.Component {
             openCurrenciesButton: false
         })
     }
+
     handleLanguagesButtonClick = () => {
         this.setState({
-            openLanguagesButton: true
-        })
-    }
-    handleTimeZonesButtonClick = () => {
-        this.setState({
-            openTimeZonesButton: true
-        })
-    }
-    handleCurrenciesButtonClick = () => {
-        this.setState({
-            openCurrenciesButton: true
+            openLanguagesButton: true,
+            openRegionButton: false,
+            openTimeZonesButton: false,
+            openCurrenciesButton: false
         })
     }
 
+    handleTimeZonesButtonClick = () => {
+        this.setState({
+            openTimeZonesButton: true,
+            openRegionButton: false,
+            openLanguagesButton: false,
+            openCurrenciesButton: false
+        })
+    }
+
+    handleCurrenciesButtonClick = () => {
+        this.setState({
+            openCurrenciesButton: true,
+            openRegionButton: false,
+            openLanguagesButton: false,
+            openTimeZonesButton: false,
+        })
+    }
 
     udpdateInput = (event) => {
         const filteredName = this.state.defaultCountryDetails.filter(country => {
@@ -125,13 +140,11 @@ class Home extends React.Component {
     }
 
     handleFilterChange = (filter, type) => {
-
         if (type === "region" || type === "timezones") {
             const filtered = this.state.defaultCountryDetails.filter(country => {
 
                 return country[type].includes(filter)
             })
-
             this.setState({ countryDetails: filtered })
         } else if (type === "languages") {
             const filtered = this.state.defaultCountryDetails.filter(country => {
@@ -139,7 +152,6 @@ class Home extends React.Component {
                 if (filteredLanguages.includes(filter)) {
                     return country[type]
                 }
-
             })
             this.setState({ countryDetails: filtered })
         } else if (type === "currencies") {
@@ -151,27 +163,16 @@ class Home extends React.Component {
             })
             this.setState({ countryDetails: filtered })
         }
-
-
     }
 
     render() {
 
         return (
             <div>
-                <div>
-                    <input
-                        type="search"
-                        className="search"
-                        onChange={(event) => this.udpdateInput(event)}
-                    >
-                    </input>
-                </div>
-                <div className="dropdown" ref={this.container}>
-                    <button type="button" className="dropdown-btn" onClick={this.handleButtonClick}>Filters</button>
-
-                    {
-                        this.state.openButton && (
+                <div className="header">
+                    <div className="dropdown" ref={this.container}>
+                        <button type="button" className="dropdown-btn" onClick={this.handleButtonClick}>Filters</button>
+                        {this.state.openButton && (
                             <div className="dropdown-content">
 
                                 <div><button className="dropdown-content-b" onClick={this.handleRegionButtonClick}>Region</button>
@@ -219,31 +220,32 @@ class Home extends React.Component {
                                     )}
                                 </div>
 
-
                                 <div><button className="dropdown-content-b" onClick={this.handleCurrenciesButtonClick}>Currencies</button>
                                     {this.state.openCurrenciesButton && (
                                         <div className="sub-dropdown">
-
-                                            {this.state.filterCurrencies.map(currencie => (
-                                                <div className="sub-dropdown-content">
-
-                                                    <button className="sub-dropdown-button" onClick={() => { this.handleFilterChange(currencie, "currencies") }}>{currencie}</button>
+                                            {this.state.filterCurrencies.map(currency => (
+                                                <div key={currency} className="sub-dropdown-content">
+                                                    <button className="sub-dropdown-button" onClick={() => { this.handleFilterChange(currency, "currencies") }}>{currency}</button>
                                                 </div>
                                             ))}
-
                                         </div>
                                     )}
                                 </div>
-
-
-
                             </div>
                         )
-                    }
-
+                        }
+                    </div>
+                    <input
+                        type="search"
+                        className="search"
+                        onChange={(event) => this.udpdateInput(event)}
+                        placeholder="Search..."
+                    >
+                    </input>
                 </div>
+
                 <div className="preview">
-                    {!this.state.countryDetails.length && <div>Sorry</div>}
+                    {!this.state.countryDetails.length && <div className="error">Sorry we couldn't find any country for that criteria</div>}
                     {
                         this.state.countryDetails.map(({ alpha3Code, ...props }) => (
                             <Card key={this.state.countryDetails.alpha3Code} {...props} />
@@ -251,15 +253,9 @@ class Home extends React.Component {
                     }
                 </div>
 
-
-
-
             </div >
         )
     }
 }
-
-
-
 
 export default Home
